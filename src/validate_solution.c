@@ -2,145 +2,145 @@
 #include <stdlib.h>
 #include <pthread.h>
 
-typedef struct 
+typedef struct
 {
     // The starting row.
     int row;
     // The starting column.
     int col;
     // The pointer to the board.
-    int (* board)[9];
+    int (*board)[9];
 } parameters;
 
 // Prototype for the walk_rows function.
-void * walk_rows(void * params);
+void *walk_rows(void *params);
 
 // Prototype for the walk_cols function.
-void * walk_cols(void * params);
+void *walk_cols(void *params);
 
 // Prototype for 3x3 square function.
-void * check_square(void * params);
+void *check_square(void *params);
 
 /***************
  * ENTRY POINT
  **************/
-int main(void) 
+int main(void)
 {
     int board[9][9];
     FILE *fptr;
     char c;
-    fptr = fopen("./../data/output.txt", "r");
+    fptr = fopen("./data/output.txt", "r");
     if (fptr == NULL)
     {
         printf("Error!");
         exit(1);
     }
-    for(int i = 0; i <9;i ++)
+    for (int i = 0; i < 9; i++)
     {
-        for(int j =0; j <9;j++)
+        for (int j = 0; j < 9; j++)
         {
             fscanf(fptr, "%d", &board[i][j]);
         }
     }
-    
-    for(int i = 0; i <9;i ++)
+
+    for (int i = 0; i < 9; i++)
     {
-        for(int j =0; j <9;j++)
+        for (int j = 0; j < 9; j++)
         {
             printf("%d ", board[i][j]);
         }
         printf("\n");
     }
     // ====== Create the parameter for the columns and rows check =======
-    parameters * param0 = (parameters *) malloc(sizeof(parameters));
+    parameters *param0 = (parameters *)malloc(sizeof(parameters));
     param0->row = 0;
     param0->col = 0;
     param0->board = board;
-    
+
     // ====== Create the parameters for the 3x3 threads ======
-    
+
     // First 3x3
-    parameters * param1 = (parameters *) malloc(sizeof(parameters));
+    parameters *param1 = (parameters *)malloc(sizeof(parameters));
     param1->row = 0;
     param1->col = 0;
     param1->board = board;
-    
+
     // Second 3x3
-    parameters * param2 = (parameters *) malloc(sizeof(parameters));
+    parameters *param2 = (parameters *)malloc(sizeof(parameters));
     param2->row = 0;
     param2->col = 3;
     param2->board = board;
-    
+
     // Third 3x3
-    parameters * param3 = (parameters *) malloc(sizeof(parameters));
+    parameters *param3 = (parameters *)malloc(sizeof(parameters));
     param3->row = 0;
     param3->col = 6;
     param3->board = board;
-    
+
     // Fourth 3x3
-    parameters * param4 = (parameters *) malloc(sizeof(parameters));
+    parameters *param4 = (parameters *)malloc(sizeof(parameters));
     param4->row = 3;
     param4->col = 0;
     param4->board = board;
-    
+
     // Fifth 3x3
-    parameters * param5 = (parameters *) malloc(sizeof(parameters));
+    parameters *param5 = (parameters *)malloc(sizeof(parameters));
     param5->row = 3;
     param5->col = 3;
     param5->board = board;
-    
+
     // Sixth 3x3
-    parameters * param6 = (parameters *) malloc(sizeof(parameters));
+    parameters *param6 = (parameters *)malloc(sizeof(parameters));
     param6->row = 3;
     param6->col = 6;
     param6->board = board;
-    
+
     // Seventh 3x3
-    parameters * param7 = (parameters *) malloc(sizeof(parameters));
+    parameters *param7 = (parameters *)malloc(sizeof(parameters));
     param7->row = 6;
     param7->col = 0;
     param7->board = board;
-    
+
     // Eighth 3x3
-    parameters * param8 = (parameters *) malloc(sizeof(parameters));
+    parameters *param8 = (parameters *)malloc(sizeof(parameters));
     param8->row = 6;
     param8->col = 3;
     param8->board = board;
-    
+
     // Ninth 3x3
-    parameters * param9 = (parameters *) malloc(sizeof(parameters));
+    parameters *param9 = (parameters *)malloc(sizeof(parameters));
     param9->row = 6;
     param9->col = 6;
     param9->board = board;
-    
+
     // ====== Create the threads ======
     pthread_t thread_rows, thread_cols, thread1, thread2, thread3, thread4, thread5, thread6, thread7, thread8, thread9;
-    
+
     // ====== Create the return values for the threads ======
-    void * all_rows;
-    void * all_cols;
-    void * square1;
-    void * square2;
-    void * square3;
-    void * square4;
-    void * square5;
-    void * square6;
-    void * square7;
-    void * square8;
-    void * square9;
-    
+    void *all_rows;
+    void *all_cols;
+    void *square1;
+    void *square2;
+    void *square3;
+    void *square4;
+    void *square5;
+    void *square6;
+    void *square7;
+    void *square8;
+    void *square9;
+
     // ====== Initialize the threads ======
-    pthread_create(&thread_rows, NULL, walk_rows, (void *) param0);
-    pthread_create(&thread_cols, NULL, walk_cols, (void *) param0);
-    pthread_create(&thread1, NULL, check_square, (void *) param1);
-    pthread_create(&thread2, NULL, check_square, (void *) param2);
-    pthread_create(&thread3, NULL, check_square, (void *) param3);
-    pthread_create(&thread4, NULL, check_square, (void *) param4);
-    pthread_create(&thread5, NULL, check_square, (void *) param5);
-    pthread_create(&thread6, NULL, check_square, (void *) param6);
-    pthread_create(&thread7, NULL, check_square, (void *) param7);
-    pthread_create(&thread8, NULL, check_square, (void *) param8);
-    pthread_create(&thread9, NULL, check_square, (void *) param9);
+    pthread_create(&thread_rows, NULL, walk_rows, (void *)param0);
+    pthread_create(&thread_cols, NULL, walk_cols, (void *)param0);
+    pthread_create(&thread1, NULL, check_square, (void *)param1);
+    pthread_create(&thread2, NULL, check_square, (void *)param2);
+    pthread_create(&thread3, NULL, check_square, (void *)param3);
+    pthread_create(&thread4, NULL, check_square, (void *)param4);
+    pthread_create(&thread5, NULL, check_square, (void *)param5);
+    pthread_create(&thread6, NULL, check_square, (void *)param6);
+    pthread_create(&thread7, NULL, check_square, (void *)param7);
+    pthread_create(&thread8, NULL, check_square, (void *)param8);
+    pthread_create(&thread9, NULL, check_square, (void *)param9);
 
     // ======= Wait for all threads to finish their tasks =======
     pthread_join(thread_rows, &all_rows);
@@ -154,25 +154,27 @@ int main(void)
     pthread_join(thread7, &square7);
     pthread_join(thread8, &square8);
     pthread_join(thread9, &square9);
-    
+
     // ====== Check whether the Sudoku Puzzle was solved ======
-    if (    (int) all_rows == 1 &&
-            (int) all_cols == 1 &&
-            (int) square1 == 1 &&
-            (int) square2 == 1 &&
-            (int) square3 == 1 &&
-            (int) square4 == 1 &&
-            (int) square5 == 1 &&
-            (int) square6 == 1 &&
-            (int) square7 == 1 &&
-            (int) square8 == 1 &&
-            (int) square9 == 1 ) {
+    if ((int)all_rows == 1 &&
+        (int)all_cols == 1 &&
+        (int)square1 == 1 &&
+        (int)square2 == 1 &&
+        (int)square3 == 1 &&
+        (int)square4 == 1 &&
+        (int)square5 == 1 &&
+        (int)square6 == 1 &&
+        (int)square7 == 1 &&
+        (int)square8 == 1 &&
+        (int)square9 == 1)
+    {
         printf("The Sudoku Puzzle is solved!\n");
     }
-    else {
+    else
+    {
         printf("The Sudoku Puzzle is NOT solved.\n");
     }
-    
+
     return 0;
 }
 
@@ -181,23 +183,28 @@ int main(void)
  * @param   void *      The parameters (pointer).
  * @return  void *      1 if all rows contain all digits from 1-9, 0 otherwise.
  */
-void * walk_rows(void * params) {
-    parameters * data = (parameters *) params;
+void *walk_rows(void *params)
+{
+    parameters *data = (parameters *)params;
     int startRow = data->row;
     int startCol = data->col;
-    for (int i = startRow; i < 9; ++i) {
+    for (int i = startRow; i < 9; ++i)
+    {
         int row[10] = {0};
-        for (int j = startCol; j < 9; ++j) {
+        for (int j = startCol; j < 9; ++j)
+        {
             int val = data->board[i][j];
-            if (row[val] != 0) {
-                return (void *) 0;
+            if (row[val] != 0)
+            {
+                return (void *)0;
             }
-            else{
+            else
+            {
                 row[val] = 1;
             }
         }
     }
-    return (void *) 1;
+    return (void *)1;
 }
 
 /**
@@ -205,23 +212,28 @@ void * walk_rows(void * params) {
  * @param   void *      The parameters (pointer).
  * @return  void *      1 if all rows contain all digits from 1-9, 0 otherwise.
  */
-void * walk_cols(void * params) {
-    parameters * data = (parameters *) params;
+void *walk_cols(void *params)
+{
+    parameters *data = (parameters *)params;
     int startRow = data->row;
     int startCol = data->col;
-    for (int i = startCol; i < 9; ++i) {
+    for (int i = startCol; i < 9; ++i)
+    {
         int col[10] = {0};
-        for (int j = startRow; j < 9; ++j) {
+        for (int j = startRow; j < 9; ++j)
+        {
             int val = data->board[j][i];
-            if (col[val] != 0) {
-                return (void *) 0;
+            if (col[val] != 0)
+            {
+                return (void *)0;
             }
-            else{
+            else
+            {
                 col[val] = 1;
             }
         }
     }
-    return (void *) 1;
+    return (void *)1;
 }
 
 /**
@@ -229,21 +241,26 @@ void * walk_cols(void * params) {
  * @param   void *      The parameters (pointer).
  * @return  void *      1 if all rows contain all digits from 1-9, 0 otherwise.
  */
-void * check_square(void * params) {
-    parameters * data = (parameters *) params;
+void *check_square(void *params)
+{
+    parameters *data = (parameters *)params;
     int startRow = data->row;
     int startCol = data->col;
     int saved[10] = {0};
-    for (int i = startRow; i < startRow + 3; ++i) {
-        for (int j = startCol; j < startCol + 3; ++j) {
+    for (int i = startRow; i < startRow + 3; ++i)
+    {
+        for (int j = startCol; j < startCol + 3; ++j)
+        {
             int val = data->board[i][j];
-            if (saved[val] != 0) {
-                return (void *) 0;
+            if (saved[val] != 0)
+            {
+                return (void *)0;
             }
-            else{
+            else
+            {
                 saved[val] = 1;
             }
         }
     }
-    return (void *) 1;
+    return (void *)1;
 }
