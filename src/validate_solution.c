@@ -43,14 +43,14 @@ int main(void)
         }
     }
 
-    for (int i = 0; i < 9; i++)
-    {
-        for (int j = 0; j < 9; j++)
-        {
-            printf("%d ", board[i][j]);
-        }
-        printf("\n");
-    }
+    // for (int i = 0; i < 9; i++)
+    // {
+    //     for (int j = 0; j < 9; j++)
+    //     {
+    //         scanf("%d", &board[i][j]);
+    //     }
+    // }
+
     // ====== Create the parameter for the columns and rows check =======
     parameters *param0 = (parameters *)malloc(sizeof(parameters));
     param0->row = 0;
