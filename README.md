@@ -17,3 +17,18 @@ Run the run.sh file.
 ```
 ./run.sh
 ```
+
+## Sample Output
+Correct Input
+
+![Correct Input](./data/image2.jpg)
+
+Correct Output
+![Correct Ouput](./output/output1.jpg)
+
+Incorrect Output
+
+![Incorrect Input](./data/image3.jpg)
+
+Correct Output
+![Incorrect Ouput](./output/output2.jpg)
