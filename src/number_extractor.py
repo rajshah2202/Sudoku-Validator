@@ -59,8 +59,8 @@ def split_boxes(board):
         cols = np.hsplit(r, 9)
         for box in cols:
             box = cv2.resize(box, (input_size, input_size))/255.0
-            ## cv2.imshow("Splitted block", box)
-            ## cv2.waitKey(0)
+            cv2.imshow("Splitted block", box)
+            cv2.waitKey(0)
             boxes.append(box)
     cv2.destroyAllWindows()
     return boxes
@@ -79,7 +79,7 @@ def displayNumbers(img, numbers, color=(0, 255, 0)):
 
 
 def main():
-    img = cv2.imread('./data/image2.jpg')
+    img = cv2.imread('./data/image3.jpg')
 
     # extract board from input image
     board, location = find_board(img)
@@ -101,9 +101,9 @@ def main():
         predicted_number = classes[index]
         predicted_numbers.append(predicted_number)
 
-    print("\nThe extracted numbers are ")
-    print(predicted_numbers)
-    print("\n")
+    # print("\nThe extracted numbers are ")
+    # print(predicted_numbers)
+    # print("\n")
     predicted_number_np = np.array(predicted_numbers)
     np.savetxt('./data/output.txt', predicted_number_np, fmt='%d')
 
