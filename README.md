@@ -26,9 +26,9 @@ Correct Input
 Correct Output
 ![Correct Ouput](./output/output1.jpg)
 
-Incorrect Output
+Incorrect Input
 
 ![Incorrect Input](./data/image3.jpg)
 
-Correct Output
+Incorrect Output
 ![Incorrect Ouput](./output/output2.jpg)
